@@ -1,0 +1,236 @@
+/* ===== RESET & BASE ===== */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 25px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== INPUTS ===== */
+input {
+  width: 70px;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1rem;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  margin: 10px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.6);
+}
+
+/* ===== MENU ===== */
+.menu-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ===== MATRICES ===== */
+.matrix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.matrix-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.grid2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.bracket {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 10px;
+  color: #00c6ff;
+}
+
+/* ===== SYSTEME ===== */
+.system {
+  margin: 15px 0;
+}
+
+.eq {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.eq input {
+  width: 60px;
+}
+
+/* ===== RESULTATS ===== */
+.result {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ===== JEU ===== */
+#jeu input {
+  width: 160px;
+}
+
+/* ===== HIDDEN ===== */
+.hidden {
+  display: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  input {
+    width: 55px;
+    padding: 8px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+/* ===== SYSTEME 4 INCONNUES ===== */
+.system4 {
+  margin: 15px 0;
+}
+
+.eq4 {
+  margin: 8px 0;
+  font-size: 1.05rem;
+}
+
+.eq4 input {
+  width: 60px;
+}
+
+/* ===== MATRICE 4x4 ===== */
+.grid4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+#resultJeu {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+.system3, .system4, .system {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.eq3, .eq4, .eq {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+input {
+  width: 50px;
+  text-align: center;
+  padding: 5px;
+  font-size: 1rem;
+}
+.social-links {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.social-links li {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #ff4d4d;
+  text-decoration: underline;
+}

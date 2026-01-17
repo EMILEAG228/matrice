@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Programme Mathématique - EMILE AG</title>
+ 
+</head>
+<style>
+
+/* ===== RESET & BASE ===== */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 25px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== INPUTS ===== */
+input {
+  width: 70px;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1rem;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  margin: 10px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.6);
+}
+
+/* ===== MENU ===== */
+.menu-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ===== MATRICES ===== */
+.matrix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.matrix-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.grid2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.bracket {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 10px;
+  color: #00c6ff;
+}
+
+/* ===== SYSTEME ===== */
+.system {
+  margin: 15px 0;
+}
+
+.eq {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.eq input {
+  width: 60px;
+}
+
+/* ===== RESULTATS ===== */
+.result {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ===== JEU ===== */
+#jeu input {
+  width: 160px;
+}
+
+/* ===== HIDDEN ===== */
+.hidden {
+  display: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  input {
+    width: 55px;
+    padding: 8px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+/* ===== SYSTEME 4 INCONNUES ===== */
+.system4 {
+  margin: 15px 0;
+}
+
+.eq4 {
+  margin: 8px 0;
+  font-size: 1.05rem;
+}
+
+.eq4 input {
+  width: 60px;
+}
+
+/* ===== MATRICE 4x4 ===== */
+.grid4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+#resultJeu {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+.system3, .system4, .system {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.eq3, .eq4, .eq {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+input {
+  width: 50px;
+  text-align: center;
+  padding: 5px;
+  font-size: 1rem;
+}
+.social-links {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.social-links li {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #ff4d4d;
+  text-decoration: underline;
+}
+
+
+
+</style>
+<body>
+
+<h1>🚨 PROGRAMME MATHÉMATIQUE 🚨</h1>
+<p class="subtitle">Lycée & Université</p>
+
+<!-- LOGIN -->
+<div id="login" class="card">
+  <h2>🔐 Accès sécurisé</h2>
+  <input type="password" id="code" placeholder="Code d'accès">
+  <button onclick="verifierCode()">Entrer</button>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="hidden card">
+  <h2>📌 Menu principal</h2>
+  <div class="menu-buttons">
+    <button onclick="showSection('m2')">Matrice 2×2</button>
+    <button onclick="showSection('m3')">Matrice 3×3</button>
+    <button onclick="showSection('sys2')">Système 2 inconnues</button>
+    <button onclick="showSection('sys3')">Système 3 inconnues</button>
+    <button onclick="showSection('sys4')">Système 4 inconnues</button>
+    <button onclick="showSection('det4')">Déterminant 4×4</button>
+    <button onclick="showSection('jeu')">Jeu de devinette</button>
+    <button onclick="showSection('about')">À propos</button>
+  </div>
+</div>
+
+<!-- MATRICE 2x2 -->
+<div id="m2" class="section hidden card">
+  <h2>📐 Matrice 2 × 2</h2>
+  <div class="matrix">
+    <span class="bracket">[</span>
+    <div class="matrix-grid grid2">
+      <input id="a" placeholder="a">
+      <input id="b" placeholder="b">
+      <input id="c" placeholder="c">
+      <input id="d" placeholder="d">
+    </div>
+    <span class="bracket">]</span>
+  </div>
+  <button onclick="determinant2()">Déterminant</button>
+  <button onclick="inverse2()">Inverse</button>
+  <div id="resultM2" class="result"></div>
+</div>
+
+<!-- MATRICE 3x3 -->
+<div id="m3" class="section hidden card">
+  <h2>📐 Matrice 3 × 3</h2>
+  <div class="matrix">
+    <span class="bracket">[</span>
+    <div class="matrix-grid grid3">
+      <input id="a3"><input id="b3"><input id="c3">
+      <input id="d3"><input id="e3"><input id="f3">
+      <input id="g3"><input id="h3"><input id="i3">
+    </div>
+    <span class="bracket">]</span>
+  </div>
+  <button onclick="determinant3()">Déterminant</button>
+  <div id="resultM3" class="result"></div>
+</div>
+
+<!-- SYSTEME 2 INCONNUES -->
+<div id="sys2" class="section hidden card">
+  <h2>📊 Système à 2 inconnues (X, Y)</h2>
+  <div class="system">
+    <div class="eq">
+      <input id="a1"> X + <input id="b1_2"> Y = <input id="x1">
+    </div>
+    <div class="eq">
+      <input id="c1"> X + <input id="d1"> Y = <input id="y1">
+    </div>
+  </div>
+  <button onclick="systeme2()">Résoudre</button>
+  <div id="resultSys2" class="result"></div>
+</div>
+
+<!-- SYSTEME 3 INCONNUES -->
+<div id="sys3" class="section hidden card">
+  <h2>📊 Système à 3 inconnues (X, Y, Z)</h2>
+  <div class="system3">
+    <div class="eq3">
+      <input id="a1_3"> X + <input id="a2_3"> Y + <input id="a3_3"> Z = <input id="b1_3">
+    </div>
+    <div class="eq3">
+      <input id="c1_3"> X + <input id="c2_3"> Y + <input id="c3_3"> Z = <input id="b2_3">
+    </div>
+    <div class="eq3">
+      <input id="d1_3"> X + <input id="d2_3"> Y + <input id="d3_3"> Z = <input id="b3_3">
+    </div>
+  </div>
+  <button onclick="resoudreSysteme3()">Résoudre</button>
+  <div id="resultSys3" class="result"></div>
+</div>
+
+<!-- SYSTEME 4 INCONNUES -->
+<div id="sys4" class="section hidden card">
+  <h2>📊 Système à 4 inconnues (X, Y, Z, R)</h2>
+  <div class="system4">
+    <div class="eq4">
+      <input id="a11"> X + <input id="a12"> Y + <input id="a13"> Z + <input id="a14"> R = <input id="b1">
+    </div>
+    <div class="eq4">
+      <input id="a21"> X + <input id="a22"> Y + <input id="a23"> Z + <input id="a24"> R = <input id="b2">
+    </div>
+    <div class="eq4">
+      <input id="a31"> X + <input id="a32"> Y + <input id="a33"> Z + <input id="a34"> R = <input id="b3">
+    </div>
+    <div class="eq4">
+      <input id="a41"> X + <input id="a42"> Y + <input id="a43"> Z + <input id="a44"> R = <input id="b4">
+    </div>
+  </div>
+  <button onclick="resoudreSysteme4()">Résoudre</button>
+  <div id="resultSys4" class="result"></div>
+</div>
+
+<!-- DETERMINANT 4x4 -->
+<div id="det4" class="section hidden card">
+  <h2>📐 Déterminant matrice 4 × 4</h2>
+  <div class="matrix">
+    <span class="bracket">[</span>
+    <div class="matrix-grid grid4">
+      <input id="m11"><input id="m12"><input id="m13"><input id="m14">
+      <input id="m21"><input id="m22"><input id="m23"><input id="m24">
+      <input id="m31"><input id="m32"><input id="m33"><input id="m34">
+      <input id="m41"><input id="m42"><input id="m43"><input id="m44">
+    </div>
+    <span class="bracket">]</span>
+  </div>
+  <button onclick="determinant4()">Calculer</button>
+  <div id="resultDet4" class="result"></div>
+</div>
+
+<!-- JEU -->
+<div id="jeu" class="section hidden card">
+  <h2>🎲 Jeu de devinette</h2>
+  <input id="intervalle" placeholder="Intervalle maximum">
+  <input id="guess" placeholder="Votre nombre">
+  <button onclick="jouer()">Jouer</button>
+  <div id="resultJeu" class="result"></div>
+</div>
+
+<!-- A PROPOS -->
+<!-- A PROPOS -->
+<div id="about" class="section hidden card">
+  <h2>ℹ️ À propos</h2>
+  <p>
+    Programme écrit par <strong>EMILE AG</strong><br>
+    Version pédagogique – Lycée & Université<br>
+    Merci pour votre confiance ❤️
+  </p>
+
+  <h3>📱 Contact & Réseaux sociaux</h3>
+  <ul class="social-links">
+    <li>🌐 <a href="https://emileag228.github.io/emileag-portfolio/" target="_blank">Site officiel</a></li>
+    <li>📧 <a href="mailto:emileagbabli7@gmail.com">emileagbabli7@gmail.com</a></li>
+    <li>🎥 <a href="https://www.youtube.com/@emileag228" target="_blank">YouTube</a></li>
+    <li>📘 <a href="https://www.facebook.com/emileagbabli228" target="_blank">Facebook</a></li>
+    <li>📞 <a href="tel:+22893896972">+228 93 89 69 72</a></li>
+  </ul>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
+<script>
+    const CODE = "2003";
+
+/* ================= LOGIN ================= */
+function verifierCode() {
+  const input = document.getElementById("code").value;
+  const loginBox = document.getElementById("login");
+  const menu = document.getElementById("menu");
+
+  if (input === CODE) {
+    loginBox.classList.add("hidden");
+    menu.classList.remove("hidden");
+
+  } else {
+    alert("❌ Code incorrect ! Essaie encore 😅");
+    document.getElementById("code").value = "";
+    document.getElementById("code").focus();
+  }
+}
+
+/* ================= NAVIGATION ================= */
+function showSection(id) {
+  document.querySelectorAll(".section").forEach(s =>
+    s.classList.add("hidden")
+  );
+  document.getElementById(id).classList.remove("hidden");
+}
+
+/* ================= MATRICE 2x2 ================= */
+function determinant2() {
+  const a = Number(document.getElementById("a").value);
+  const b = Number(document.getElementById("b").value);
+  const c = Number(document.getElementById("c").value);
+  const d = Number(document.getElementById("d").value);
+
+  const det = a * d - b * c;
+  const result = document.getElementById("resultM2");
+  result.innerHTML = `🧮 Déterminant = ${det}`;
+  result.style.color = det === 0 ? "red" : "green";
+}
+
+function inverse2() {
+  const a = Number(document.getElementById("a").value);
+  const b = Number(document.getElementById("b").value);
+  const c = Number(document.getElementById("c").value);
+  const d = Number(document.getElementById("d").value);
+  const det = a * d - b * c;
+  const result = document.getElementById("resultM2");
+
+  if (det === 0) {
+    result.innerHTML = "❌ Inverse impossible (det nul)";
+    result.style.color = "red";
+  } else {
+    result.innerHTML = `✅ Inverse = (1/${det}) × [[${d}, ${-b}], [${-c}, ${a}]]`;
+    result.style.color = "green";
+  }
+}
+
+/* ================= MATRICE 3x3 ================= */
+function determinant3() {
+  const A = Number(document.getElementById("a3").value);
+  const B = Number(document.getElementById("b3").value);
+  const C = Number(document.getElementById("c3").value);
+  const D = Number(document.getElementById("d3").value);
+  const E = Number(document.getElementById("e3").value);
+  const F = Number(document.getElementById("f3").value);
+  const G = Number(document.getElementById("g3").value);
+  const H = Number(document.getElementById("h3").value);
+  const I = Number(document.getElementById("i3").value);
+
+  const det = A*(E*I-H*F) - B*(D*I-G*F) + C*(D*H-G*E);
+  const result = document.getElementById("resultM3");
+  result.innerHTML = `🧮 Déterminant = ${det}`;
+  result.style.color = det === 0 ? "red" : "green";
+}
+
+/* ================= SYSTEME 2 INCONNUES ================= */
+function systeme2() {
+  const a = Number(document.getElementById("a1").value);
+  const b = Number(document.getElementById("b1").value);
+  const c = Number(document.getElementById("c1").value);
+  const d = Number(document.getElementById("d1").value);
+  const x = Number(document.getElementById("x1").value);
+  const y = Number(document.getElementById("y1").value);
+
+  const det = a*d - b*c;
+  const result = document.getElementById("resultSys2");
+
+  if (det === 0) {
+    result.innerHTML = "❌ Système impossible (det nul)";
+    result.style.color = "red";
+    return;
+  }
+
+  const X = (x*d - b*y)/det;
+  const Y = (a*y - c*x)/det;
+
+  result.innerHTML = `✅ X = ${X.toFixed(2)}, Y = ${Y.toFixed(2)}`;
+  result.style.color = "green";
+}
+
+/* ================= SYSTEME 4 INCONNUES ================= */
+function resoudreSysteme4() {
+  let M = [];
+  for (let i=1; i<=4; i++) {
+    let ligne = [];
+    for (let j=1; j<=4; j++) {
+      ligne.push(Number(document.getElementById(`a${i}${j}`).value));
+    }
+    ligne.push(Number(document.getElementById(`b${i}`).value));
+    M.push(ligne);
+  }
+
+  for (let i=0; i<4; i++) {
+    if(M[i][i]===0) {
+      document.getElementById("resultSys4").innerHTML="❌ Impossible de résoudre (pivot nul)";
+      return;
+    }
+    for (let j=i+1; j<4; j++){
+      let f = M[j][i]/M[i][i];
+      for(let k=i;k<5;k++) M[j][k]-=f*M[i][k];
+    }
+  }
+
+  let R=M[3][4]/M[3][3];
+  let Z=(M[2][4]-M[2][3]*R)/M[2][2];
+  let Y=(M[1][4]-M[1][3]*R-M[1][2]*Z)/M[1][1];
+  let X=(M[0][4]-M[0][3]*R-M[0][2]*Z-M[0][1]*Y)/M[0][0];
+
+  const result = document.getElementById("resultSys4");
+  result.innerHTML = `✅ X=${X.toFixed(2)}, Y=${Y.toFixed(2)}, Z=${Z.toFixed(2)}, R=${R.toFixed(2)}`;
+  result.style.color = "green";
+}
+
+/* ================= JEU DE DEVINETTE ================= */
+let solution = null;
+let essais = 0;
+
+function jouer() {
+  const max = Number(document.getElementById("intervalle").value);
+  const guess = Number(document.getElementById("guess").value);
+  const result = document.getElementById("resultJeu");
+
+  if (!max || max < 1) {
+    result.innerHTML = "❌ Intervalle invalide";
+    result.style.color = "red";
+    return;
+  }
+
+  if(solution===null){
+    solution = Math.floor(Math.random()*max)+1;
+    essais=0;
+    result.innerHTML = `💡 J'ai choisi un nombre entre 1 et ${max}. Devine !`;
+    result.style.color="blue";
+    return;
+  }
+
+  essais++;
+
+  if(guess===solution){
+    result.innerHTML = `🎉 Bravo ! Tu as trouvé ${solution} en ${essais} essais ! 🏆`;
+    result.style.color="green";
+    solution=null;
+    essais=0;
+    document.getElementById("guess").value="";
+  } else if(guess<solution){
+    result.innerHTML = `⬆️ Trop petit ! Essai #${essais}`;
+    result.style.color="orange";
+  } else {
+    result.innerHTML = `⬇️ Trop grand ! Essai #${essais}`;
+    result.style.color="orange";
+  }
+
+  // animation pulse
+  result.style.transition="transform 0.2s";
+  result.style.transform="scale(1.1)";
+  setTimeout(()=>{ result.style.transform="scale(1)"; },200);
+}
+function resoudreSysteme3() {
+  // Récupération des coefficients
+  let M = [
+    [Number(document.getElementById("a1_3").value), Number(document.getElementById("a2_3").value), Number(document.getElementById("a3_3").value), Number(document.getElementById("b1_3").value)],
+    [Number(document.getElementById("c1_3").value), Number(document.getElementById("c2_3").value), Number(document.getElementById("c3_3").value), Number(document.getElementById("b2_3").value)],
+    [Number(document.getElementById("d1_3").value), Number(document.getElementById("d2_3").value), Number(document.getElementById("d3_3").value), Number(document.getElementById("b3_3").value)]
+  ];
+
+  // Elimination de Gauss
+  for(let i=0;i<3;i++){
+    if(M[i][i]===0){
+      document.getElementById("resultSys3").innerHTML="❌ Impossible de résoudre (pivot nul)";
+      document.getElementById("resultSys3").style.color="red";
+      return;
+    }
+    for(let j=i+1;j<3;j++){
+      let f = M[j][i]/M[i][i];
+      for(let k=i;k<4;k++){
+        M[j][k]-=f*M[i][k];
+      }
+    }
+  }
+
+  // Remontée
+  let Z = M[2][3]/M[2][2];
+  let Y = (M[1][3]-M[1][2]*Z)/M[1][1];
+  let X = (M[0][3]-M[0][2]*Z-M[0][1]*Y)/M[0][0];
+
+  const result = document.getElementById("resultSys3");
+  result.innerHTML = `✅ X=${X.toFixed(2)}, Y=${Y.toFixed(2)}, Z=${Z.toFixed(2)}`;
+  result.style.color = "green";
+}
+function resoudreSysteme3() {
+  let M = [
+    [Number(document.getElementById("a1_3").value), Number(document.getElementById("a2_3").value), Number(document.getElementById("a3_3").value), Number(document.getElementById("b1_3").value)],
+    [Number(document.getElementById("c1_3").value), Number(document.getElementById("c2_3").value), Number(document.getElementById("c3_3").value), Number(document.getElementById("b2_3").value)],
+    [Number(document.getElementById("d1_3").value), Number(document.getElementById("d2_3").value), Number(document.getElementById("d3_3").value), Number(document.getElementById("b3_3").value)]
+  ];
+
+  // Élimination de Gauss
+  for(let i=0;i<3;i++){
+    if(M[i][i]===0){
+      document.getElementById("resultSys3").innerHTML="❌ Impossible de résoudre (pivot nul)";
+      document.getElementById("resultSys3").style.color="red";
+      return;
+    }
+    for(let j=i+1;j<3;j++){
+      let f = M[j][i]/M[i][i];
+      for(let k=i;k<4;k++){
+        M[j][k]-=f*M[i][k];
+      }
+    }
+  }
+
+  // Remontée
+  let Z = M[2][3]/M[2][2];
+  let Y = (M[1][3]-M[1][2]*Z)/M[1][1];
+  let X = (M[0][3]-M[0][2]*Z-M[0][1]*Y)/M[0][0];
+
+  const result = document.getElementById("resultSys3");
+  result.innerHTML = `✅ X=${X.toFixed(2)}, Y=${Y.toFixed(2)}, Z=${Z.toFixed(2)}`;
+  result.style.color = "green";
+}
+
+</script>
