@@ -1,21 +1,4 @@
-const CODE = "2003";
 
-/* ================= LOGIN ================= */
-function verifierCode() {
-  const input = document.getElementById("code").value;
-  const loginBox = document.getElementById("login");
-  const menu = document.getElementById("menu");
-
-  if (input === CODE) {
-    loginBox.classList.add("hidden");
-    menu.classList.remove("hidden");
-
-  } else {
-    alert("❌ Code incorrect ! Essaie encore 😅");
-    document.getElementById("code").value = "";
-    document.getElementById("code").focus();
-  }
-}
 
 /* ================= NAVIGATION ================= */
 function showSection(id) {
@@ -238,3 +221,4 @@ function resoudreSysteme3() {
   result.innerHTML = `✅ X=${X.toFixed(2)}, Y=${Y.toFixed(2)}, Z=${Z.toFixed(2)}`;
   result.style.color = "green";
 }
+
